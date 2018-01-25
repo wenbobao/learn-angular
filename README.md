@@ -73,3 +73,36 @@ template: `
       </li>
     </ul>
 ```
+
+# chap03-知识点
+
+## @Input 输入属性
+
+1. 父组件
+
+```
+<hero-detail [hero]="selectedHero"></hero-detail>
+
+```
+2. 子组件
+
+```
+@Component({
+  selector: 'hero-detail',
+  template: `
+  <div *ngIf="hero">
+    <h2>{{hero.name}} details!</h2>
+    <div><label>id: </label>{{hero.id}}</div>
+    <div>
+      <label>name: </label>
+      <input [(ngModel)]="hero.name" placeholder="name"/>
+    </div>
+  </div>
+  `
+})
+export class HeroDetailComponent {
+  @Input() hero: Hero;
+}
+```
+
+
