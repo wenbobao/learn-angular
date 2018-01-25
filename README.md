@@ -105,4 +105,58 @@ export class HeroDetailComponent {
 }
 ```
 
+# chap04-知识点
 
+## 定义服务
+
+```
+@Injectable()
+export class HeroService {
+  getHeroes(): void {} // stub
+}
+```
+
+## 注入服务
+
+```
+@Component({
+  selector: 'app-root',
+  template: `
+  `],
+  providers: [HeroService]
+})
+export class AppComponent implements OnInit {
+  constructor(private heroService: HeroService) {
+  }
+}
+```
+
+## ngOnInit
+
+```
+export class AppComponent implements OnInit {
+  ngOnInit() {
+    this.getHeroes();
+  }
+}
+```
+
+## Promise
+
+```
+  getHeroesAsync(): Promise<Hero[]> {
+    return Promise.resolve(HEROES);
+  }
+```
+
+```
+export class AppComponent implements OnInit {
+  heroes: Hero[];
+  getHeroes(): void {
+    // Promise
+    this.heroService.getHeroesAsync().then(heroes => {
+      this.heroes = heroes;
+    });
+  }
+}
+```
