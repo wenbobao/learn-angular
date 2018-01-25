@@ -8,6 +8,10 @@ export class HeroService {
     return HEROES;
   }
 
+  getHero(id: number): Promise<Hero> {
+    return this.getHeroesAsync().then(heroes => heroes.find(hero => hero.id === id));
+  }
+
   getHeroesAsync(): Promise<Hero[]> {
     return Promise.resolve(HEROES);
   }
