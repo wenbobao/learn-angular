@@ -1,22 +1,31 @@
-# 设置开发环境
+# chap01-知识点
 
-1. 安装 `node.js` 和 `npm`, 建议使用8.9.x以上版本。
-2. 全局安装 `Angular CLI` 。
-
-```
-npm install -g @angular/cli
-```
-
-# 创建新项目
+## 插值表达式
 
 ```
-ng new my-app
+<h1>{{title}}</h1>
 ```
 
-# 启动开发服务器
+## 多行模版字符串
 
 ```
-cd my-app
-ng serve --open   /  ng serve -o
+template: `
+    <h1>{{title}}</h1>
+    <h2>{{hero.name}} details</h2>
+    <div><label>id: </label>{{hero.id}}</div>
+    <div><label>name: </label>{{hero.name}}</div>
+    <div>
+    <label>name: </label>
+    <input [(ngModel)]="hero.name" placeholder="name">
+    </div>
+    `,
+```
+
+## 双向绑定
+
+需要在 `AppModule`类中导入 `FormsModule`
+
+```
+<input [(ngModel)]="hero.name" placeholder="name">
 ```
 
