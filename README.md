@@ -160,3 +160,115 @@ export class AppComponent implements OnInit {
   }
 }
 ```
+
+# chap05-知识点
+
+## 路由
+
+### 配置路由
+
+```
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: 'heroes',
+    component: HeroesComponent
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
+    path: '',
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'detail/:id',
+    component: HeroDetailComponent
+  }
+];
+
+@NgModule({
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [RouterModule]
+})
+
+```
+
+### 路由重定向
+
+```
+{
+  path: '',
+  redirectTo: '/dashboard',
+  pathMatch: 'full'
+},
+```
+
+### 路由出口(Outlet)
+
+通常把`<router-outlet>`标签添加到模板的底部。 `RouterOutlet`是由`RouterModule`提供的指令之一。 当我们在应用中导航时，路由器就把激活的组件显示在`<router-outlet>`里面。
+
+```
+<h1> {{title}}</h1>
+<nav>
+  <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+  <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
+</nav>
+<router-outlet></router-outlet>
+// 这里是 导航内容现实的地方
+```
+
+当导航到某个界面时，会把导航的组件显示在 `<router-outlet></router-outlet>` 标签下面。
+
+### 路由器连接
+
+1. 指令
+
+```
+// 不带参数
+<a routerLink="/dashboard">Dashboard</a>
+// 带参数
+<a *ngFor="let hero of heroes" class="col-1-4" [routerLink]="['/detail', hero.id]">
+    <div class="module hero">
+      <h4>{{hero.name}}</h4>
+    </div>
+  </a>
+```
+
+2. 代码
+
+```
+import { Router } from '@angular/router';
+...
+gotoDetail() {
+  this.router.navigate(['/detail', this.selectedHero.id]);
+}
+```
+
+### routerLinkActive
+
+`Angular`路由器提供了`routerLinkActive`指令，我们可以用它来为匹配了活动路由的 HTML 导航元素自动添加一个 CSS 类。
+
+```
+<nav>
+  <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+  <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
+</nav>
+```
+
+```
+nav a.active {
+  color: #039be5;
+}
+```
+
+## 管道
+
+管道能干预插值表达式绑定的过程。例如: 格式化字符串、金额、日期和其它显示数据。
+
+```
+{{selectedHero.name | uppercase}} is my hero
+```
